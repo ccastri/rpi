@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    volumes:
+      - /home/ccastri/setup_rpi/backend/app/mosquitto:/mosquitto
+      # - ./mosquitto/passwd.txt:/mosquitto/config/passwd.txt
+    command: mosquitto -c /mosquitto/mosquitto.conf
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    restart: unless-stopped
+  
+  # pyserial:
+  #   build: ./app
+  #   volumes:
+  #     - ./app:/app
+  #   depends_on:
+  #     - mosquitto
+  #   devices:
+  #     - /dev/ttyUSB0  # Cambia esto al nombre correcto del dispositivo serial que necesitas acceder
